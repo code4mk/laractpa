@@ -70389,10 +70389,7 @@ function (_Component) {
         type: "email",
         className: "form-control",
         name: "email",
-        value: "",
-        required: true,
-        autocomplete: "email",
-        autofocus: true
+        value: ""
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -70499,10 +70496,7 @@ function (_Component) {
         type: "email",
         className: "form-control",
         name: "email",
-        value: "",
-        required: true,
-        autocomplete: "email",
-        autofocus: true
+        value: ""
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -70515,10 +70509,7 @@ function (_Component) {
         type: "email",
         className: "form-control",
         name: "email",
-        value: "",
-        required: true,
-        autocomplete: "email",
-        autofocus: true
+        value: ""
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -70530,9 +70521,7 @@ function (_Component) {
         id: "password",
         type: "password",
         className: "form-control",
-        name: "password",
-        required: true,
-        autocomplete: "current-password"
+        name: "password"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row mb-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -70644,6 +70633,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_auth_register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/auth/register */ "./resources/js/components/auth/register.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -70678,6 +70673,26 @@ function (_Component) {
   }
 
   _createClass(routes, [{
+    key: "AuthMiddleware",
+    value: function AuthMiddleware(_ref) {
+      var Component = _ref.component,
+          authed = _ref.authed,
+          rest = _objectWithoutProperties(_ref, ["component", "authed"]);
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], _extends({}, rest, {
+        render: function render(props) {
+          return authed === true ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+            to: {
+              pathname: '/react/login',
+              state: {
+                from: props.location
+              }
+            }
+          });
+        }
+      }));
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {

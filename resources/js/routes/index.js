@@ -7,6 +7,17 @@ import Login from '../components/auth/login'
 import Register from '../components/auth/register'
 
 class routes extends Component {
+  AuthMiddleware({component: Component, authed, ...rest}) {
+    return (
+    <Route
+      {...rest}
+      render={(props) => authed === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/react/login', state: {from: props.location}}} />}
+    />
+    )
+  }
+
     render() {
       return (
         <Switch>

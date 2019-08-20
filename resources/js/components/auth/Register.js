@@ -17,7 +17,7 @@ class Login extends Component {
                                   <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                                   <div class="col-md-6">
-                                      <input id="name" type="email" class="form-control" name="email" value="" required autocomplete="email" autofocus/>
+                                      <input id="name" type="email" class="form-control" name="email" value=""/>
                                   </div>
                               </div>
 
@@ -26,7 +26,7 @@ class Login extends Component {
                                       <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
                                       <div class="col-md-6">
-                                          <input id="email" type="email" class="form-control" name="email" value="" required autocomplete="email" autofocus/>
+                                          <input id="email" type="email" class="form-control" name="email" value="" />
                                       </div>
                                   </div>
 
@@ -34,7 +34,7 @@ class Login extends Component {
                                       <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                                       <div class="col-md-6">
-                                          <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password"/>
+                                          <input id="password" type="password" class="form-control" name="password" />
                                       </div>
                                   </div>
 
