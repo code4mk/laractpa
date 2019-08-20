@@ -20,6 +20,13 @@ class MainApp extends Component {
                   <ul class="navbar-nav ml-auto">
 
                           <li class="nav-item">
+                            <Link className="nav-link" to="/react/post">Blog</Link>
+                          </li>
+                          <li class="nav-item">
+                            <Link className="nav-link" to="/react/post">Admin Posts</Link>
+                          </li>
+
+                          <li class="nav-item">
                             <Link className="nav-link" to="/react/dashboard">Dashboard</Link>
                           </li>
                           <li class="nav-item">
