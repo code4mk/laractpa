@@ -19,6 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Route::prefix('react/api')->group(function () {
+    Route::get('/login', 'ReactController@login');
+    Route::get('/logout', 'ReactController@logout');
+});
+
 Route::get('/react/{any?}',function(){
   return view('Laractpa');
 })->where('any', '.*');

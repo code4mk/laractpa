@@ -1,8 +1,25 @@
 import React, { Component } from 'react'
-import { Redirect, Link, Route, Switch } from 'react-router-dom'
+import { Redirect, Link, Route, Switch, withRouter   } from 'react-router-dom'
 import Routes from '../routes'
+import {http} from '../helpers/common/laxios'
 
 class MainApp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Laractpa'
+    }
+  }
+  logout(e) {
+    http.get('/react/api/logout').then((response)=>{
+      localStorage.setItem('isAuth',false)
+
+      //this.props.history.push("/react/login");
+
+      browserHistory.push('/react/login')
+
+    })
+  }
   render() {
     return (
       <div>
@@ -30,11 +47,16 @@ class MainApp extends Component {
                             <Link className="nav-link" to="/react/dashboard">Dashboard</Link>
                           </li>
                           <li class="nav-item">
-                            <Link className="nav-link" to="/react/login">Login</Link>
-                          </li>
-                          <li class="nav-item">
-                            <Link className="nav-link" to="/react/register">Register</Link>
-                          </li>
+                                <Link className="nav-link" to="/react/login">Login</Link>
+                         </li>
+
+                         <li class="nav-item">
+                               <Link className="nav-link" to="/react/register">Register</Link>
+                         </li>
+                         <li class="nav-item">
+                               <a className="nav-link" onClick={(e) => this.logout()}>LogOut</a>
+                         </li>
+
 
 
                   </ul>

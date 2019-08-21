@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect, Link, Route, Switch } from 'react-router-dom'
+import { Redirect, Link, Route, Switch,BrowserRouter } from 'react-router-dom'
 
 
 import Welcome from '../components/welcome'
@@ -35,8 +35,6 @@ class routes extends Component {
           <Route path="/react/login" component={Login} />
           <Route path="/react/register" component={Register} />
           <PrivateRoute authed={this.state.isAuth} path='/react/dashboard' component={Dashboard} />
-
-
         </Switch>
       )
     }
