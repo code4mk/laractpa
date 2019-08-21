@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 use Hash;
 use Auth;
 
@@ -33,7 +34,8 @@ class ReactController extends Controller
             return response()->json([
                 'status' => true,
                 'auth' => 'true',
-                'user'   => $user->id
+                'user'   => $user->id,
+                'name' => $user->name
             ]);
         }else{
             return response()->json([
@@ -48,5 +50,25 @@ class ReactController extends Controller
       return response()->json([
         'status' => 'done'
       ]);
+    }
+
+    public function info()
+    {
+      return response()->json(Auth::user());
+    }
+
+    public function posts()
+    {
+      $posts = Post::all();
+      return response()->json($posts);
+    }
+
+    public function createPost(Request $request)
+    {
+      $post = new Post;
+      $post->title = $request->title;
+      $post->details = $request->details;
+      $post->save();
+      return response()->json('done');
     }
 }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Redirect, Link, Route, Switch,BrowserRouter } from 'react-router-dom'
-
+import Cookies from 'js-cookie'
 
 import Welcome from '../components/welcome'
 import Login from '../components/auth/login'
 import Register from '../components/auth/register'
 import Dashboard from '../components/dashboard'
+import Post from '../components/post'
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
   return (
@@ -25,7 +26,13 @@ class routes extends Component {
           isAuth: true,
       }
 
+
     }
+    // componentDidMount() {
+    //   // let a = (localStorage.getItem('isAuth') === 'true' ? true : false ;
+    //   const self = this;
+    //   self.setState({ isAuth: Cookies.get('isAuth')})
+    // }
 
     render() {
       return (
@@ -34,7 +41,9 @@ class routes extends Component {
           <Route path="/react/home" component={Welcome} />
           <Route path="/react/login" component={Login} />
           <Route path="/react/register" component={Register} />
-          <PrivateRoute authed={this.state.isAuth} path='/react/dashboard' component={Dashboard} />
+          <Route path="/react/dashboard" component={Dashboard} />
+          <Route path="/react/post" component={Post} />
+          // <PrivateRoute authed={this.state.isAuth} path='/react/dashboard' component={Dashboard} />
         </Switch>
       )
     }

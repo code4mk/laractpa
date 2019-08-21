@@ -23,6 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('react/api')->group(function () {
     Route::get('/login', 'ReactController@login');
     Route::get('/logout', 'ReactController@logout');
+    Route::get('/u/info', 'ReactController@info');
+    Route::get('/posts', 'ReactController@posts');
+    Route::get('/post/create', 'ReactController@createPost');
 });
 
 Route::get('/react/{any?}',function(){
