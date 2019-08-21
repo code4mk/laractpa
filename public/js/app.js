@@ -70955,6 +70955,12 @@ function (_Component) {
     value: function render() {
       var _this3 = this;
 
+      if (localStorage.getItem('isAuth') && localStorage.getItem('isAuth') !== 'true') {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+          to: "/react/login"
+        });
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
         history: this.props.history
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
@@ -71233,12 +71239,18 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "nav-link",
         to: "/react/post"
-      }, "Blog")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        className: "nav-link",
-        to: "/react/post"
-      }, "Admin Posts")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, "Blog")), function () {
+        var isAuth = localStorage.getItem('isAuth');
+
+        if (isAuth === 'true') {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            className: "nav-item"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+            className: "nav-link",
+            to: "/react/post"
+          }, "Admin Post"));
+        }
+      }(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "nav-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "nav-link",

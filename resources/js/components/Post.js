@@ -44,6 +44,9 @@ class Post extends Component {
      });
 }
     render() {
+      if (localStorage.getItem('isAuth') && localStorage.getItem('isAuth') !== 'true' ) {
+        return <Redirect to="/react/login" />
+      }
         return (
           <div>
             <MainLayout history={this.props.history}></MainLayout>

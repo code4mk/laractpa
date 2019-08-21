@@ -39,9 +39,16 @@ class MainLayout extends Component {
                             <li class="nav-item">
                               <Link className="nav-link" to="/react/post">Blog</Link>
                             </li>
-                            <li class="nav-item">
-                              <Link className="nav-link" to="/react/post">Admin Posts</Link>
-                            </li>
+                            {(() => {
+                              let isAuth = localStorage.getItem('isAuth')
+                              if (isAuth === 'true') {
+                                return (
+                                  <li class="nav-item">
+                                     <Link className="nav-link" to="/react/post">Admin Post</Link>
+                                  </li>
+                                  );
+                                }
+                          })()}
 
                             <li class="nav-item">
                               <Link className="nav-link" to="/react/dashboard">Dashboard</Link>
