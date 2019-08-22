@@ -44,7 +44,7 @@ class Post extends Component {
      });
 }
     render() {
-      if (localStorage.getItem('isAuth') === null && localStorage.getItem('isAuth') !== 'true' ) {
+      if (localStorage.getItem('isAuth') === null || localStorage.getItem('isAuth') !== 'true' ) {
         return <Redirect to="/react/login" />
       }
         return (
@@ -64,7 +64,7 @@ class Post extends Component {
                                       <label for="name" class="col-md-4 col-form-label text-md-right">Title</label>
 
                                       <div class="col-md-6">
-                                          <input id="name" type="email" class="form-control" name="title" value={this.state.title} onChange={(e) => {this.setState({title: e.target.value})}} />
+                                          <input id="name" type="email" class="form-control" placeholder="post title" name="title" value={this.state.title} onChange={(e) => {this.setState({title: e.target.value})}} />
                                       </div>
                                   </div>
 
@@ -72,7 +72,7 @@ class Post extends Component {
                                       <label for="name" class="col-md-4 col-form-label text-md-right">Details</label>
 
                                       <div class="col-md-6">
-                                          <input id="name" type="email" class="form-control" name="details" value={this.state.details} onChange={(e) => {this.setState({details: e.target.value})}}/>
+                                          <input id="name" type="email" class="form-control" placeholder="write details" name="details" value={this.state.details} onChange={(e) => {this.setState({details: e.target.value})}}/>
                                       </div>
                                   </div>
 
@@ -99,7 +99,7 @@ class Post extends Component {
                               <th scope="col">#</th>
                               <th scope="col">title</th>
                               <th scope="col">details</th>
-
+                              <th scope="col">actions</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -109,6 +109,9 @@ class Post extends Component {
                                   <th scope="row">{post.id}</th>
                                   <td > {post.title}</td>
                                   <td > {post.details}</td>
+                                  <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button></td>
                                 </tr>
                               )
                             }
@@ -119,6 +122,27 @@ class Post extends Component {
                       </div>
                   </div>
               </div>
+
+              <div class="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
             </main>
           </div>
         );

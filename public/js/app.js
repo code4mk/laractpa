@@ -70634,7 +70634,7 @@ function (_Component) {
     value: function render() {
       console.log(localStorage.getItem('isAuth'));
 
-      if (localStorage.getItem('isAuth') === null && localStorage.getItem('isAuth') !== 'true') {
+      if (localStorage.getItem('isAuth') === null || localStorage.getItem('isAuth') !== 'true') {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
           to: "/react/login"
         });
@@ -70654,7 +70654,7 @@ function (_Component) {
         className: "jumbotron"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "display-4"
-      }, "Hi, "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, "Hi,", localStorage.getItem('u'), " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "lead"
       }, "This is a Laravel React SPA app"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "my-4"
@@ -70773,7 +70773,7 @@ function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      if (localStorage.getItem('isAuth') === null && localStorage.getItem('isAuth') !== 'true') {
+      if (localStorage.getItem('isAuth') === null || localStorage.getItem('isAuth') !== 'true') {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
           to: "/react/login"
         });
@@ -70806,6 +70806,7 @@ function (_Component) {
         id: "name",
         type: "email",
         className: "form-control",
+        placeholder: "post title",
         name: "title",
         value: this.state.title,
         onChange: function onChange(e) {
@@ -70824,6 +70825,7 @@ function (_Component) {
         id: "name",
         type: "email",
         className: "form-control",
+        placeholder: "write details",
         name: "details",
         value: this.state.details,
         onChange: function onChange(e) {
@@ -70851,13 +70853,55 @@ function (_Component) {
         scope: "col"
       }, "title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         scope: "col"
-      }, "details"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.posts.map(function (post) {
+      }, "details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "actions"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.posts.map(function (post) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
           key: post.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
           scope: "row"
-        }, post.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", post.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", post.details));
-      }))))))));
+        }, post.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", post.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", post.details), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          type: "button",
+          className: "btn btn-primary",
+          "data-toggle": "modal",
+          "data-target": "#exampleModal"
+        }, "Launch demo modal")));
+      })))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal fade",
+        id: "exampleModal",
+        tabIndex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLabel",
+        "aria-hidden": "true"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog",
+        role: "document"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "modal-title",
+        id: "exampleModalLabel"
+      }, "Modal title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body"
+      }, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-secondary",
+        "data-dismiss": "modal"
+      }, "Close"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary"
+      }, "Save changes")))))));
     }
   }]);
 
@@ -71276,8 +71320,8 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mostafa\laractpa\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\mostafa\laractpa\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\user\laractpa\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\user\laractpa\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
