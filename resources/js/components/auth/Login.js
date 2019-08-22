@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect, Link, Route, Switch, withRouter  } from 'react-router-dom'
 import {http} from '../../helpers/common/laxios'
 import MainLayout from '../../layout/MainLayout'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 class Login extends Component {
     constructor(props) {
       super(props);
@@ -21,7 +21,7 @@ class Login extends Component {
         }).then((response)=>{
             localStorage.setItem('isAuth',response.data.auth)
             localStorage.setItem('u',response.data.name)
-            Cookies.set('isAuth', response.data.auth, { expires: 723 });
+            // Cookies.set('isAuth', response.data.auth, { expires: 723 });
             if(response.data.status){
                 this.props.history.push("/react/dashboard");
             }

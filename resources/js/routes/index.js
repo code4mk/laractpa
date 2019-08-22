@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect, Link, Route, Switch,BrowserRouter } from 'react-router-dom'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
 import Welcome from '../components/welcome'
 import Login from '../components/auth/login'

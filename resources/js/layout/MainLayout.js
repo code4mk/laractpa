@@ -37,7 +37,7 @@ class MainLayout extends Component {
                     <ul class="navbar-nav ml-auto">
 
                             <li class="nav-item">
-                              <Link className="nav-link" to="/react/post">Blog</Link>
+                              <Link className="nav-link" to="/react">Blog</Link>
                             </li>
                             {(() => {
                               let isAuth = localStorage.getItem('isAuth')

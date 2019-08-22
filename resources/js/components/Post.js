@@ -44,7 +44,7 @@ class Post extends Component {
      });
 }
     render() {
-      if (localStorage.getItem('isAuth') && localStorage.getItem('isAuth') !== 'true' ) {
+      if (localStorage.getItem('isAuth') === null && localStorage.getItem('isAuth') !== 'true' ) {
         return <Redirect to="/react/login" />
       }
         return (

@@ -13,7 +13,8 @@ class Dashboard extends Component {
     }
 
     render() {
-      if (localStorage.getItem('isAuth') && localStorage.getItem('isAuth') !== 'true' ) {
+      console.log(localStorage.getItem('isAuth'))
+      if (localStorage.getItem('isAuth') === null && localStorage.getItem('isAuth') !== 'true' ) {
         return <Redirect to="/react/login" />
       }
         return (
@@ -24,7 +25,7 @@ class Dashboard extends Component {
                   <div class="row">
                     <div class="col-md-8 col-lg-8 col-sm-8o offset-2">
                       <div class="jumbotron">
-                        <h1 class="display-4">Hi, {localStorage.getItem('u')}</h1>
+                        <h1 class="display-4">Hi, </h1>
                         <p class="lead">This is a Laravel React SPA app</p>
                         <hr class="my-4"/>
                         <p>Laravel + react + SPA + Rest Api + JWT</p>

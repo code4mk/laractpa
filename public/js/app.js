@@ -18063,184 +18063,6 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./node_modules/js-cookie/src/js.cookie.js":
-/*!*************************************************!*\
-  !*** ./node_modules/js-cookie/src/js.cookie.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * JavaScript Cookie v2.2.1
- * https://github.com/js-cookie/js-cookie
- *
- * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
- * Released under the MIT license
- */
-;(function (factory) {
-	var registeredInModuleLoader;
-	if (true) {
-		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		registeredInModuleLoader = true;
-	}
-	if (true) {
-		module.exports = factory();
-		registeredInModuleLoader = true;
-	}
-	if (!registeredInModuleLoader) {
-		var OldCookies = window.Cookies;
-		var api = window.Cookies = factory();
-		api.noConflict = function () {
-			window.Cookies = OldCookies;
-			return api;
-		};
-	}
-}(function () {
-	function extend () {
-		var i = 0;
-		var result = {};
-		for (; i < arguments.length; i++) {
-			var attributes = arguments[ i ];
-			for (var key in attributes) {
-				result[key] = attributes[key];
-			}
-		}
-		return result;
-	}
-
-	function decode (s) {
-		return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
-	}
-
-	function init (converter) {
-		function api() {}
-
-		function set (key, value, attributes) {
-			if (typeof document === 'undefined') {
-				return;
-			}
-
-			attributes = extend({
-				path: '/'
-			}, api.defaults, attributes);
-
-			if (typeof attributes.expires === 'number') {
-				attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
-			}
-
-			// We're using "expires" because "max-age" is not supported by IE
-			attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
-
-			try {
-				var result = JSON.stringify(value);
-				if (/^[\{\[]/.test(result)) {
-					value = result;
-				}
-			} catch (e) {}
-
-			value = converter.write ?
-				converter.write(value, key) :
-				encodeURIComponent(String(value))
-					.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
-
-			key = encodeURIComponent(String(key))
-				.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
-				.replace(/[\(\)]/g, escape);
-
-			var stringifiedAttributes = '';
-			for (var attributeName in attributes) {
-				if (!attributes[attributeName]) {
-					continue;
-				}
-				stringifiedAttributes += '; ' + attributeName;
-				if (attributes[attributeName] === true) {
-					continue;
-				}
-
-				// Considers RFC 6265 section 5.2:
-				// ...
-				// 3.  If the remaining unparsed-attributes contains a %x3B (";")
-				//     character:
-				// Consume the characters of the unparsed-attributes up to,
-				// not including, the first %x3B (";") character.
-				// ...
-				stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
-			}
-
-			return (document.cookie = key + '=' + value + stringifiedAttributes);
-		}
-
-		function get (key, json) {
-			if (typeof document === 'undefined') {
-				return;
-			}
-
-			var jar = {};
-			// To prevent the for loop in the first place assign an empty array
-			// in case there are no cookies at all.
-			var cookies = document.cookie ? document.cookie.split('; ') : [];
-			var i = 0;
-
-			for (; i < cookies.length; i++) {
-				var parts = cookies[i].split('=');
-				var cookie = parts.slice(1).join('=');
-
-				if (!json && cookie.charAt(0) === '"') {
-					cookie = cookie.slice(1, -1);
-				}
-
-				try {
-					var name = decode(parts[0]);
-					cookie = (converter.read || converter)(cookie, name) ||
-						decode(cookie);
-
-					if (json) {
-						try {
-							cookie = JSON.parse(cookie);
-						} catch (e) {}
-					}
-
-					jar[name] = cookie;
-
-					if (key === name) {
-						break;
-					}
-				} catch (e) {}
-			}
-
-			return key ? jar[key] : jar;
-		}
-
-		api.set = set;
-		api.get = function (key) {
-			return get(key, false /* read as raw */);
-		};
-		api.getJSON = function (key) {
-			return get(key, true /* read as json */);
-		};
-		api.remove = function (key, attributes) {
-			set(key, '', extend(attributes, {
-				expires: -1
-			}));
-		};
-
-		api.defaults = {};
-
-		api.withConverter = init;
-
-		return api;
-	}
-
-	return init(function () {});
-}));
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/lodash.js":
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
@@ -70483,8 +70305,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/common/laxios */ "./resources/js/helpers/common/laxios.js");
 /* harmony import */ var _layout_MainLayout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../layout/MainLayout */ "./resources/js/layout/MainLayout.js");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70506,8 +70326,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-
+ // import Cookies from 'js-cookie'
 
 var Login =
 /*#__PURE__*/
@@ -70539,10 +70358,7 @@ function (_Component) {
         }
       }).then(function (response) {
         localStorage.setItem('isAuth', response.data.auth);
-        localStorage.setItem('u', response.data.name);
-        js_cookie__WEBPACK_IMPORTED_MODULE_4___default.a.set('isAuth', response.data.auth, {
-          expires: 723
-        });
+        localStorage.setItem('u', response.data.name); // Cookies.set('isAuth', response.data.auth, { expires: 723 });
 
         if (response.data.status) {
           _this2.props.history.push("/react/dashboard");
@@ -70816,7 +70632,9 @@ function (_Component) {
   _createClass(Dashboard, [{
     key: "render",
     value: function render() {
-      if (localStorage.getItem('isAuth') && localStorage.getItem('isAuth') !== 'true') {
+      console.log(localStorage.getItem('isAuth'));
+
+      if (localStorage.getItem('isAuth') === null && localStorage.getItem('isAuth') !== 'true') {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
           to: "/react/login"
         });
@@ -70836,7 +70654,7 @@ function (_Component) {
         className: "jumbotron"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "display-4"
-      }, "Hi, ", localStorage.getItem('u')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, "Hi, "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "lead"
       }, "This is a Laravel React SPA app"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "my-4"
@@ -70955,7 +70773,7 @@ function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      if (localStorage.getItem('isAuth') && localStorage.getItem('isAuth') !== 'true') {
+      if (localStorage.getItem('isAuth') === null && localStorage.getItem('isAuth') !== 'true') {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
           to: "/react/login"
         });
@@ -71238,7 +71056,7 @@ function (_Component) {
         className: "nav-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "nav-link",
-        to: "/react/post"
+        to: "/react"
       }, "Blog")), function () {
         var isAuth = localStorage.getItem('isAuth');
 
@@ -71324,13 +71142,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_welcome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/welcome */ "./resources/js/components/welcome.js");
-/* harmony import */ var _components_auth_login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/auth/login */ "./resources/js/components/auth/login.js");
-/* harmony import */ var _components_auth_register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/auth/register */ "./resources/js/components/auth/register.js");
-/* harmony import */ var _components_dashboard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/dashboard */ "./resources/js/components/dashboard.js");
-/* harmony import */ var _components_post__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/post */ "./resources/js/components/post.js");
+/* harmony import */ var _components_welcome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/welcome */ "./resources/js/components/welcome.js");
+/* harmony import */ var _components_auth_login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/auth/login */ "./resources/js/components/auth/login.js");
+/* harmony import */ var _components_auth_register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/auth/register */ "./resources/js/components/auth/register.js");
+/* harmony import */ var _components_dashboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/dashboard */ "./resources/js/components/dashboard.js");
+/* harmony import */ var _components_post__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/post */ "./resources/js/components/post.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71356,7 +71172,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
-
+ // import Cookies from 'js-cookie'
 
 
 
@@ -71414,23 +71230,23 @@ function (_Component) {
         to: "/react/home"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/react/home",
-        component: _components_welcome__WEBPACK_IMPORTED_MODULE_3__["default"]
+        component: _components_welcome__WEBPACK_IMPORTED_MODULE_2__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/react/login",
-        component: _components_auth_login__WEBPACK_IMPORTED_MODULE_4__["default"]
+        component: _components_auth_login__WEBPACK_IMPORTED_MODULE_3__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/react/register",
-        component: _components_auth_register__WEBPACK_IMPORTED_MODULE_5__["default"]
+        component: _components_auth_register__WEBPACK_IMPORTED_MODULE_4__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/react/dashboard",
-        component: _components_dashboard__WEBPACK_IMPORTED_MODULE_6__["default"]
+        component: _components_dashboard__WEBPACK_IMPORTED_MODULE_5__["default"]
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
         path: "/react/post",
-        component: _components_post__WEBPACK_IMPORTED_MODULE_7__["default"]
+        component: _components_post__WEBPACK_IMPORTED_MODULE_6__["default"]
       }), "// ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PrivateRoute, {
         authed: this.state.isAuth,
         path: "/react/dashboard",
-        component: _components_dashboard__WEBPACK_IMPORTED_MODULE_6__["default"]
+        component: _components_dashboard__WEBPACK_IMPORTED_MODULE_5__["default"]
       }));
     }
   }]);
@@ -71460,8 +71276,8 @@ function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\user\laractpa\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\user\laractpa\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\mostafa\laractpa\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\mostafa\laractpa\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
