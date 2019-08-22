@@ -24,4 +24,4 @@ npm install
 npm run watch
 ```
 
-[live demo](http://laractpa.herokuapp.com/react/homes)
+[live demo](http://laractpa.herokuapp.com/react/home)
