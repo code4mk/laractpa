@@ -23,3 +23,5 @@ yarn run watch
 npm install
 npm run watch
 ```
+
+[live demo](http://laractpa.herokuapp.com/react/homes)
