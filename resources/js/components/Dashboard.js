@@ -28,7 +28,7 @@ class Dashboard extends Component {
                         <h1 class="display-4">Hi,{localStorage.getItem('u')} </h1>
                         <p class="lead">This is a Laravel React SPA app</p>
                         <hr class="my-4"/>
-                        <p>Laravel + react + SPA + Rest Api + JWT</p>
+                        <p>Laravel + React + SPA + Rest Api </p>
                         <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
                       </div>
                     </div>

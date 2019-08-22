@@ -70793,7 +70793,7 @@ function (_Component) {
         className: "lead"
       }, "This is a Laravel React SPA app"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "my-4"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Laravel + react + SPA + Rest Api + JWT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Laravel + React + SPA + Rest Api "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "btn btn-primary btn-lg",
         href: "#",
         role: "button"
