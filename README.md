@@ -1,6 +1,6 @@
 <p align="center" ><img src="https://raw.githubusercontent.com/code4mk/laractpa/master/public/images/laractpa.png"></p>
 
-<p align="center" ><img src="https://raw.githubusercontent.com/code4mk/laractpa/master/public/images/laractpa_demo.png"></p>
+<p align="center" ><img src="https://raw.githubusercontent.com/code4mk/laractpa/master/public/images/laractpa_demo.JPG"></p>
 
 
 * clone this
