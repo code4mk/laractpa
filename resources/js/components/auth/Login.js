@@ -8,8 +8,9 @@ class Login extends Component {
       super(props);
       this.state = {
         email: 'hiremostafa@gmail.com',
-        password: 'mkmkmkmk',
-        errors: []
+        password: 'hiremostafa',
+        errors: [],
+        invalid: ''
       };
     }
 
@@ -25,11 +26,15 @@ class Login extends Component {
             // Cookies.set('isAuth', response.data.auth, { expires: 723 });
             if(response.data.status){
                 this.props.history.push("/react/dashboard");
-            }else{
+            }else if(response.data.status === 'error'){
+
               const self = this
               self.setState({ errors: response.data.errors })
+            }else{
+              const self = this
+              self.setState({ invalid: 'Your username or password is wrong' })
             }
-            console.log(response.data)
+
         })
     }
 
@@ -55,7 +60,7 @@ class Login extends Component {
                                         <label for="email" class="col-md-4 col-form-label text-md-right">username/email</label>
 
                                         <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control" name="email" value={this.state.email} onChange={(e) => {this.setState({email: e.target.value,errors:[]})}} />
+                                            <input id="email" type="email" class="form-control" name="email" value={this.state.email} onChange={(e) => {this.setState({email: e.target.value,invalid:'' ,errors:[]})}} />
                                               {(() => {
 
                                                 if (this.state.errors.username) {
@@ -64,6 +69,15 @@ class Login extends Component {
                                                     );
                                                   }
                                             })()}
+
+                                            {(() => {
+
+                                              if (this.state.invalid !== '') {
+                                                return (
+                                                  <p style={{color:"red"}}>{this.state.invalid}</p>
+                                                  );
+                                                }
+                                          })()}
                                         </div>
                                     </div>
 
@@ -71,7 +85,7 @@ class Login extends Component {
                                         <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control" name="password" value={this.state.password} onChange={(e) => {this.setState({password: e.target.value,errors:[]})}}/>
+                                            <input id="password" type="password" class="form-control" name="password" value={this.state.password} onChange={(e) => {this.setState({password: e.target.value,invalid:'',errors:[]})}}/>
                                               {(() => {
 
                                                 if (this.state.errors.password) {

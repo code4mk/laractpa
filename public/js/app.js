@@ -70341,8 +70341,9 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Login).call(this, props));
     _this.state = {
       email: 'hiremostafa@gmail.com',
-      password: 'mkmkmkmk',
-      errors: []
+      password: 'hiremostafa',
+      errors: [],
+      invalid: ''
     };
     return _this;
   }
@@ -70363,14 +70364,18 @@ function (_Component) {
 
         if (response.data.status) {
           _this2.props.history.push("/react/dashboard");
-        } else {
+        } else if (response.data.status === 'error') {
           var self = _this2;
           self.setState({
             errors: response.data.errors
           });
-        }
+        } else {
+          var _self = _this2;
 
-        console.log(response.data);
+          _self.setState({
+            invalid: 'Your username or password is wrong'
+          });
+        }
       });
     }
   }, {
@@ -70417,6 +70422,7 @@ function (_Component) {
         onChange: function onChange(e) {
           _this3.setState({
             email: e.target.value,
+            invalid: '',
             errors: []
           });
         }
@@ -70427,6 +70433,14 @@ function (_Component) {
               color: "red"
             }
           }, _this3.state.errors.username[0]);
+        }
+      }(), function () {
+        if (_this3.state.invalid !== '') {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this3.state.invalid);
         }
       }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
@@ -70444,6 +70458,7 @@ function (_Component) {
         onChange: function onChange(e) {
           _this3.setState({
             password: e.target.value,
+            invalid: '',
             errors: []
           });
         }
@@ -70795,7 +70810,8 @@ function (_Component) {
         className: "my-4"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Laravel + React + SPA + Rest Api "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "btn btn-primary btn-lg",
-        href: "#",
+        href: "http://github.com/code4mk/laractpa",
+        target: "_blank",
         role: "button"
       }, "Learn more")))))));
     }
@@ -71221,7 +71237,7 @@ var _0x25d7 = function _0x25d7(_0x4ad3ec, _0x23e0b5) {
 var kamal = _0x25d7('0x0');
 
 var http = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'http://laractpa.herokuapp.com',
   headers: {
     'Authorization': kamal
   }
