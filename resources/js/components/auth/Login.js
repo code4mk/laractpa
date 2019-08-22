@@ -8,7 +8,8 @@ class Login extends Component {
       super(props);
       this.state = {
         email: 'hiremostafa@gmail.com',
-        password: 'mkmkmkmk'
+        password: 'mkmkmkmk',
+        errors: []
       };
     }
 
@@ -24,6 +25,9 @@ class Login extends Component {
             // Cookies.set('isAuth', response.data.auth, { expires: 723 });
             if(response.data.status){
                 this.props.history.push("/react/dashboard");
+            }else{
+              const self = this
+              self.setState({ errors: response.data.errors })
             }
             console.log(response.data)
         })
@@ -48,10 +52,18 @@ class Login extends Component {
 
                             <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                        <label for="email" class="col-md-4 col-form-label text-md-right">username/email</label>
 
                                         <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control" name="email" value={this.state.email} onChange={(e) => {this.setState({email: e.target.value})}} />
+                                            <input id="email" type="email" class="form-control" name="email" value={this.state.email} onChange={(e) => {this.setState({email: e.target.value,errors:[]})}} />
+                                              {(() => {
+
+                                                if (this.state.errors.username) {
+                                                  return (
+                                                    <p style={{color:"red"}}>{this.state.errors.username[0]}</p>
+                                                    );
+                                                  }
+                                            })()}
                                         </div>
                                     </div>
 
@@ -59,7 +71,15 @@ class Login extends Component {
                                         <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control" name="password" value={this.state.password} onChange={(e) => {this.setState({password: e.target.value})}}/>
+                                            <input id="password" type="password" class="form-control" name="password" value={this.state.password} onChange={(e) => {this.setState({password: e.target.value,errors:[]})}}/>
+                                              {(() => {
+
+                                                if (this.state.errors.password) {
+                                                  return (
+                                                    <p style={{color:"red"}}>{this.state.errors.password[0]}</p>
+                                                    );
+                                                  }
+                                            })()}
                                         </div>
                                     </div>
                                     <div class="form-group row mb-0">

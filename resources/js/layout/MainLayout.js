@@ -14,6 +14,7 @@ class MainLayout extends Component {
   logout(e) {
     http.get('/react/api/logout').then((response)=>{
       localStorage.setItem('isAuth',false)
+      localStorage.setItem('u','')
 
       this.props.history.push("/react/login");
     })

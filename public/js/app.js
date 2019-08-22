@@ -70341,7 +70341,8 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Login).call(this, props));
     _this.state = {
       email: 'hiremostafa@gmail.com',
-      password: 'mkmkmkmk'
+      password: 'mkmkmkmk',
+      errors: []
     };
     return _this;
   }
@@ -70362,6 +70363,11 @@ function (_Component) {
 
         if (response.data.status) {
           _this2.props.history.push("/react/dashboard");
+        } else {
+          var self = _this2;
+          self.setState({
+            errors: response.data.errors
+          });
         }
 
         console.log(response.data);
@@ -70400,7 +70406,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "email",
         className: "col-md-4 col-form-label text-md-right"
-      }, "E-Mail Address"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "username/email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "email",
@@ -70410,10 +70416,19 @@ function (_Component) {
         value: this.state.email,
         onChange: function onChange(e) {
           _this3.setState({
-            email: e.target.value
+            email: e.target.value,
+            errors: []
           });
         }
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), function () {
+        if (_this3.state.errors.username) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this3.state.errors.username[0]);
+        }
+      }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "password",
@@ -70428,10 +70443,19 @@ function (_Component) {
         value: this.state.password,
         onChange: function onChange(e) {
           _this3.setState({
-            password: e.target.value
+            password: e.target.value,
+            errors: []
           });
         }
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), function () {
+        if (_this3.state.errors.password) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this3.state.errors.password[0]);
+        }
+      }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row mb-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-8 offset-md-4"
@@ -70463,7 +70487,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../layout/MainLayout */ "./resources/js/layout/MainLayout.js");
+/* harmony import */ var _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/common/laxios */ "./resources/js/helpers/common/laxios.js");
+/* harmony import */ var _layout_MainLayout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../layout/MainLayout */ "./resources/js/layout/MainLayout.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70486,21 +70511,57 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Login =
 /*#__PURE__*/
 function (_Component) {
   _inherits(Login, _Component);
 
-  function Login() {
+  function Login(props) {
+    var _this;
+
     _classCallCheck(this, Login);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Login).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Login).call(this, props));
+    _this.state = {
+      name: '',
+      username: '',
+      email: '',
+      password: '',
+      errors: {}
+    };
+    return _this;
   }
 
   _createClass(Login, [{
+    key: "register",
+    value: function register() {
+      var _this2 = this;
+
+      _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_2__["http"].get('/react/api/u/register', {
+        params: {
+          name: this.state.name,
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password
+        }
+      }).then(function (response) {
+        if (response.data.staus === 'error') {
+          var self = _this2;
+          self.setState({
+            errors: response.data.errors
+          });
+        } else {
+          _this2.props.history.push("/react/login");
+        }
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      var _this3 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layout_MainLayout__WEBPACK_IMPORTED_MODULE_3__["default"], {
         history: this.props.history
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
         className: "py-4"
@@ -70516,9 +70577,6 @@ function (_Component) {
         className: "card-header"
       }, "Register"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        method: "POST",
-        action: "Login"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -70527,12 +70585,55 @@ function (_Component) {
       }, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "uname",
+        type: "email",
+        className: "form-control",
+        name: "name",
+        placeholder: "your name",
+        value: this.state.name,
+        onChange: function onChange(e) {
+          _this3.setState({
+            name: e.target.value,
+            errors: []
+          });
+        }
+      }), function () {
+        if (_this3.state.errors.name) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this3.state.errors.name[0]);
+        }
+      }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "name",
+        className: "col-md-4 col-form-label text-md-right"
+      }, "Username"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "name",
         type: "email",
         className: "form-control",
-        name: "email",
-        value: ""
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        name: "name",
+        placeholder: "your username",
+        value: this.state.username,
+        onChange: function onChange(e) {
+          _this3.setState({
+            username: e.target.value,
+            errors: []
+          });
+        }
+      }), function () {
+        if (_this3.state.errors.username) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this3.state.errors.username[0]);
+        }
+      }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "email",
@@ -70544,8 +70645,23 @@ function (_Component) {
         type: "email",
         className: "form-control",
         name: "email",
-        value: ""
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        placeholder: "your email",
+        value: this.state.email,
+        onChange: function onChange(e) {
+          _this3.setState({
+            email: e.target.value,
+            errors: []
+          });
+        }
+      }), function () {
+        if (_this3.state.errors.email) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this3.state.errors.email[0]);
+        }
+      }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "password",
@@ -70556,15 +70672,34 @@ function (_Component) {
         id: "password",
         type: "password",
         className: "form-control",
-        name: "password"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        name: "password",
+        placeholder: "your password",
+        value: this.state.password,
+        onChange: function onChange(e) {
+          _this3.setState({
+            password: e.target.value,
+            errors: []
+          });
+        }
+      }), function () {
+        if (_this3.state.errors.password) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this3.state.errors.password[0]);
+        }
+      }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row mb-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-8 offset-md-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
-        className: "btn btn-primary"
-      }, "Register")))))))))));
+        className: "btn btn-primary",
+        onClick: function onClick(e) {
+          return _this3.register();
+        }
+      }, "Register"))))))))));
     }
   }]);
 
@@ -70724,7 +70859,10 @@ function (_Component) {
     _this.state = {
       posts: [],
       title: '',
-      details: ''
+      details: '',
+      postTitle: '',
+      postDetails: '',
+      errors: []
     };
     return _this;
   }
@@ -70741,18 +70879,45 @@ function (_Component) {
         }
       }).then(function (response) {
         var self = _this2;
-        _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_3__["http"].get('/react/api/posts').then(function (response) {
+
+        if (response.data.staus === 'error') {
           self.setState({
-            posts: response.data
+            errors: response.data.errors
           });
-          self.setState({
-            title: ''
+        } else {
+          _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_3__["http"].get('/react/api/posts').then(function (response) {
+            self.setState({
+              posts: response.data
+            });
+            self.setState({
+              title: ''
+            });
+            self.setState({
+              details: ''
+            });
+          })["catch"](function (error) {
+            console.log(error);
           });
-          self.setState({
-            details: ''
-          });
-        })["catch"](function (error) {
-          console.log(error);
+        }
+      });
+    }
+  }, {
+    key: "showPost",
+    value: function showPost(e) {
+      var _this3 = this;
+
+      _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_3__["http"].get('/react/api/post/show', {
+        params: {
+          id: e
+        }
+      }).then(function (response) {
+        console.log(response.data);
+        var self = _this3;
+        self.setState({
+          postTitle: response.data.title
+        });
+        self.setState({
+          postDetails: response.data.details
         });
       });
     }
@@ -70771,7 +70936,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (localStorage.getItem('isAuth') === null || localStorage.getItem('isAuth') !== 'true') {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
@@ -70810,30 +70975,47 @@ function (_Component) {
         name: "title",
         value: this.state.title,
         onChange: function onChange(e) {
-          _this3.setState({
-            title: e.target.value
+          _this4.setState({
+            title: e.target.value,
+            errors: []
           });
         }
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), function () {
+        if (_this4.state.errors.title) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this4.state.errors.title[0]);
+        }
+      }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "name",
         className: "col-md-4 col-form-label text-md-right"
       }, "Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-6"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "name",
-        type: "email",
         className: "form-control",
         placeholder: "write details",
         name: "details",
         value: this.state.details,
         onChange: function onChange(e) {
-          _this3.setState({
-            details: e.target.value
+          _this4.setState({
+            details: e.target.value,
+            errors: []
           });
         }
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), function () {
+        if (_this4.state.errors.details) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            style: {
+              color: "red"
+            }
+          }, _this4.state.errors.details[0]);
+        }
+      }())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group row mb-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-8 offset-md-4"
@@ -70841,7 +71023,7 @@ function (_Component) {
         type: "submit",
         className: "btn btn-primary",
         onClick: function onClick(e) {
-          return _this3.postCreate();
+          return _this4.postCreate();
         }
       }, "save")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-6"
@@ -70860,12 +71042,15 @@ function (_Component) {
           key: post.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
           scope: "row"
-        }, post.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", post.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", post.details), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, post.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", post.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, " ", post.details.substring(0, 100), " ", post.details.length > 100 ? '.....' : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           type: "button",
           className: "btn btn-primary",
           "data-toggle": "modal",
-          "data-target": "#exampleModal"
-        }, "Launch demo modal")));
+          "data-target": "#exampleModal",
+          onClick: function onClick(e) {
+            return _this4.showPost(post.id);
+          }
+        }, "show")));
       })))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal fade",
         id: "exampleModal",
@@ -70883,7 +71068,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
         className: "modal-title",
         id: "exampleModalLabel"
-      }, "Modal title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.state.postTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "close",
         "data-dismiss": "modal",
@@ -70892,16 +71077,13 @@ function (_Component) {
         "aria-hidden": "true"
       }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-body"
-      }, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.postDetails), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-footer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
         className: "btn btn-secondary",
         "data-dismiss": "modal"
-      }, "Close"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: "btn btn-primary"
-      }, "Save changes")))))));
+      }, "Close")))))));
     }
   }]);
 
@@ -71073,6 +71255,7 @@ function (_Component) {
 
       _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_2__["http"].get('/react/api/logout').then(function (response) {
         localStorage.setItem('isAuth', false);
+        localStorage.setItem('u', '');
 
         _this2.props.history.push("/react/login");
       });
