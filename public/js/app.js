@@ -71164,15 +71164,19 @@ function (_Component) {
         className: "jumbotron"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "display-4"
-      }, "Hello, Laractpa!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "/images/laractpa.png",
+        alt: ""
+      }), " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "lead"
       }, "This is a Laravel React SPA app"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: "my-4"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Laravel + react + SPA + Rest Api + JWT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "btn btn-primary btn-lg",
-        href: "#",
+        href: "https://github.com/code4mk/laractpa",
+        target: "_blank",
         role: "button"
-      }, "Learn more")))))));
+      }, "Github repo")))))));
     }
   }]);
 
@@ -71302,7 +71306,13 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "navbar-brand",
         to: "/react"
-      }, "Laractpa"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        style: {
+          width: "150px"
+        },
+        src: "/images/laractpa.png",
+        alt: ""
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "collapse navbar-collapse",
         id: "navbarSupportedContent"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {

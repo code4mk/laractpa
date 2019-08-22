@@ -26,7 +26,7 @@ class MainLayout extends Component {
       <div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <Link className="navbar-brand" to="/react">Laractpa</Link>
+                <Link className="navbar-brand" to="/react"><img style={{width:"150px"}} src="/images/laractpa.png" alt=""/></Link>
 
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
