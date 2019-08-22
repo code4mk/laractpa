@@ -43,6 +43,10 @@ class Post extends Component {
   }
 
   showPost(e){
+    const self = this;
+    self.setState({ postTitle: '' })
+    self.setState({ postDetails: '' })
+
     http.get('/react/api/post/show',{
         params:{
             id: e,

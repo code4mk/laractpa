@@ -70906,6 +70906,13 @@ function (_Component) {
     value: function showPost(e) {
       var _this3 = this;
 
+      var self = this;
+      self.setState({
+        postTitle: ''
+      });
+      self.setState({
+        postDetails: ''
+      });
       _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_3__["http"].get('/react/api/post/show', {
         params: {
           id: e
