@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::prefix('react/api')->group(function () {
+Route::prefix('react/api')->middleware(['laractpa'])->group(function () {
     Route::get('/login', 'ReactController@login');
     Route::get('/logout', 'ReactController@logout');
     Route::get('/u/info', 'ReactController@info');
