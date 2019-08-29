@@ -6388,6 +6388,356 @@ module.exports = function isBuffer (obj) {
 
 /***/ }),
 
+/***/ "./node_modules/crel/crel.js":
+/*!***********************************!*\
+  !*** ./node_modules/crel/crel.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+//Copyright (C) 2012 Kory Nunn
+
+//Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+//The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+/*
+
+    This code is not formatted for readability, but rather run-speed and to assist compilers.
+
+    However, the code's intention should be transparent.
+
+    *** IE SUPPORT ***
+
+    If you require this library to work in IE7, add the following after declaring crel.
+
+    var testDiv = document.createElement('div'),
+        testLabel = document.createElement('label');
+
+    testDiv.setAttribute('class', 'a');
+    testDiv['className'] !== 'a' ? crel.attrMap['class'] = 'className':undefined;
+    testDiv.setAttribute('name','a');
+    testDiv['name'] !== 'a' ? crel.attrMap['name'] = function(element, value){
+        element.id = value;
+    }:undefined;
+
+
+    testLabel.setAttribute('for', 'a');
+    testLabel['htmlFor'] !== 'a' ? crel.attrMap['for'] = 'htmlFor':undefined;
+
+
+
+*/
+
+(function (root, factory) {
+    if (true) {
+        module.exports = factory();
+    } else {}
+}(this, function () {
+    var fn = 'function',
+        obj = 'object',
+        nodeType = 'nodeType',
+        textContent = 'textContent',
+        setAttribute = 'setAttribute',
+        attrMapString = 'attrMap',
+        isNodeString = 'isNode',
+        isElementString = 'isElement',
+        d = typeof document === obj ? document : {},
+        isType = function(a, type){
+            return typeof a === type;
+        },
+        isNode = typeof Node === fn ? function (object) {
+            return object instanceof Node;
+        } :
+        // in IE <= 8 Node is an object, obviously..
+        function(object){
+            return object &&
+                isType(object, obj) &&
+                (nodeType in object) &&
+                isType(object.ownerDocument,obj);
+        },
+        isElement = function (object) {
+            return crel[isNodeString](object) && object[nodeType] === 1;
+        },
+        isArray = function(a){
+            return a instanceof Array;
+        },
+        appendChild = function(element, child) {
+            if (isArray(child)) {
+                child.map(function(subChild){
+                    appendChild(element, subChild);
+                });
+                return;
+            }
+            if(!crel[isNodeString](child)){
+                child = d.createTextNode(child);
+            }
+            element.appendChild(child);
+        };
+
+
+    function crel(){
+        var args = arguments, //Note: assigned to a variable to assist compilers. Saves about 40 bytes in closure compiler. Has negligable effect on performance.
+            element = args[0],
+            child,
+            settings = args[1],
+            childIndex = 2,
+            argumentsLength = args.length,
+            attributeMap = crel[attrMapString];
+
+        element = crel[isElementString](element) ? element : d.createElement(element);
+        // shortcut
+        if(argumentsLength === 1){
+            return element;
+        }
+
+        if(!isType(settings,obj) || crel[isNodeString](settings) || isArray(settings)) {
+            --childIndex;
+            settings = null;
+        }
+
+        // shortcut if there is only one child that is a string
+        if((argumentsLength - childIndex) === 1 && isType(args[childIndex], 'string') && element[textContent] !== undefined){
+            element[textContent] = args[childIndex];
+        }else{
+            for(; childIndex < argumentsLength; ++childIndex){
+                child = args[childIndex];
+
+                if(child == null){
+                    continue;
+                }
+
+                if (isArray(child)) {
+                  for (var i=0; i < child.length; ++i) {
+                    appendChild(element, child[i]);
+                  }
+                } else {
+                  appendChild(element, child);
+                }
+            }
+        }
+
+        for(var key in settings){
+            if(!attributeMap[key]){
+                if(isType(settings[key],fn)){
+                    element[key] = settings[key];
+                }else{
+                    element[setAttribute](key, settings[key]);
+                }
+            }else{
+                var attr = attributeMap[key];
+                if(typeof attr === fn){
+                    attr(element, settings[key]);
+                }else{
+                    element[setAttribute](attr, settings[key]);
+                }
+            }
+        }
+
+        return element;
+    }
+
+    // Used for mapping one kind of attribute to the supported version of that in bad browsers.
+    crel[attrMapString] = {};
+
+    crel[isElementString] = isElement;
+
+    crel[isNodeString] = isNode;
+
+    if(typeof Proxy !== 'undefined'){
+        crel.proxy = new Proxy(crel, {
+            get: function(target, key){
+                !(key in crel) && (crel[key] = crel.bind(null, key));
+                return crel[key];
+            }
+        });
+    }
+
+    return crel;
+}));
+
+
+/***/ }),
+
+/***/ "./node_modules/cross-domain-storage/getId.js":
+/*!****************************************************!*\
+  !*** ./node_modules/cross-domain-storage/getId.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var prefix = 'sessionAccessId-';
+
+function getId(data) {
+    var id;
+
+    if (data && data.id && ~data.id.indexOf(prefix)) {
+        id = data.id;
+    }
+
+    return id;
+}
+
+module.exports = getId;
+
+
+/***/ }),
+
+/***/ "./node_modules/cross-domain-storage/guest/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/cross-domain-storage/guest/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var crel = __webpack_require__(/*! crel */ "./node_modules/crel/crel.js");
+var prefix = 'sessionAccessId-';
+var getId = __webpack_require__(/*! ../getId */ "./node_modules/cross-domain-storage/getId.js");
+
+function createId() {
+    return prefix + Date.now();
+}
+
+module.exports = function storageGuest(source, parent) {
+    parent = parent || document.body;
+
+    var iframe;
+    var contentWindow;
+    var callbacks = {};
+    var sessionRequests = [];
+    var connected = false;
+    var closed = true;
+    var connectedTimeout;
+    var isLoaded = false;
+
+    iframe = crel('iframe', {
+        src: source,
+        width: 0,
+        height: 0,
+        style: 'display: none;',
+        onload: function() {
+            isLoaded = true;
+        },
+    });
+
+    function openStorage() {
+        parent.appendChild(iframe);
+        contentWindow = iframe.contentWindow;
+        closed = false;
+
+        window.addEventListener('message', handleMessage);
+
+        checkConnected();
+    }
+
+    openStorage();
+
+    function handleMessage(event) {
+        var response = event.data;
+        var sessionAccessId = getId(response);
+
+        if (sessionAccessId === 'sessionAccessId-connected') {
+            connected = true;
+            return;
+        }
+
+        if (response.connectError) {
+            for (var key in callbacks) {
+                if (callbacks[key]) {
+                    callbacks[key](response.error);
+                }
+            }
+
+            callbacks = {};
+
+            return;
+        }
+
+        var callback = callbacks[sessionAccessId];
+
+        if (sessionAccessId && callback) {
+            callback(response.error, response.data);
+        }
+    }
+
+    function close() {
+        clearTimeout(connectedTimeout);
+        window.removeEventListener('message', handleMessage);
+        iframe.parentNode.removeChild(iframe);
+        connected = false;
+        closed = true;
+    }
+
+    function message(method, key, value, callback) {
+        if (closed) {
+            openStorage();
+        }
+
+        if (!connected && method !== 'connect') {
+            sessionRequests.push(arguments);
+        }
+
+        var id = createId();
+
+        callbacks[id] = callback;
+
+        if (isLoaded) {
+            contentWindow.postMessage(
+                {
+                    method: method,
+                    key: key,
+                    value: value,
+                    id: id,
+                },
+                source
+            );
+        }
+    }
+
+    function get(key, callback) {
+        if (!callback) {
+            throw new Error('callback required for get');
+        }
+
+        message('get', key, null, callback);
+    }
+
+    function set(key, value, callback) {
+        message('set', key, value, callback);
+    }
+
+    function remove(key, callback) {
+        message('remove', key, null, callback);
+    }
+
+    function checkConnected() {
+        if (connected) {
+            clearTimeout(connectedTimeout);
+            while (sessionRequests.length) {
+                message.apply(null, sessionRequests.pop());
+            }
+
+            return;
+        }
+
+        message('connect');
+
+        connectedTimeout = setTimeout(checkConnected, 125);
+    }
+
+    return {
+        get: get,
+        set: set,
+        remove: remove,
+        close: close,
+    };
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/gud/index.js":
 /*!***********************************!*\
   !*** ./node_modules/gud/index.js ***!
@@ -18059,6 +18409,184 @@ if ( !noGlobal ) {
 
 return jQuery;
 } );
+
+
+/***/ }),
+
+/***/ "./node_modules/js-cookie/src/js.cookie.js":
+/*!*************************************************!*\
+  !*** ./node_modules/js-cookie/src/js.cookie.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * JavaScript Cookie v2.2.1
+ * https://github.com/js-cookie/js-cookie
+ *
+ * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+ * Released under the MIT license
+ */
+;(function (factory) {
+	var registeredInModuleLoader;
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		registeredInModuleLoader = true;
+	}
+	if (true) {
+		module.exports = factory();
+		registeredInModuleLoader = true;
+	}
+	if (!registeredInModuleLoader) {
+		var OldCookies = window.Cookies;
+		var api = window.Cookies = factory();
+		api.noConflict = function () {
+			window.Cookies = OldCookies;
+			return api;
+		};
+	}
+}(function () {
+	function extend () {
+		var i = 0;
+		var result = {};
+		for (; i < arguments.length; i++) {
+			var attributes = arguments[ i ];
+			for (var key in attributes) {
+				result[key] = attributes[key];
+			}
+		}
+		return result;
+	}
+
+	function decode (s) {
+		return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
+	}
+
+	function init (converter) {
+		function api() {}
+
+		function set (key, value, attributes) {
+			if (typeof document === 'undefined') {
+				return;
+			}
+
+			attributes = extend({
+				path: '/'
+			}, api.defaults, attributes);
+
+			if (typeof attributes.expires === 'number') {
+				attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
+			}
+
+			// We're using "expires" because "max-age" is not supported by IE
+			attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
+
+			try {
+				var result = JSON.stringify(value);
+				if (/^[\{\[]/.test(result)) {
+					value = result;
+				}
+			} catch (e) {}
+
+			value = converter.write ?
+				converter.write(value, key) :
+				encodeURIComponent(String(value))
+					.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+
+			key = encodeURIComponent(String(key))
+				.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
+				.replace(/[\(\)]/g, escape);
+
+			var stringifiedAttributes = '';
+			for (var attributeName in attributes) {
+				if (!attributes[attributeName]) {
+					continue;
+				}
+				stringifiedAttributes += '; ' + attributeName;
+				if (attributes[attributeName] === true) {
+					continue;
+				}
+
+				// Considers RFC 6265 section 5.2:
+				// ...
+				// 3.  If the remaining unparsed-attributes contains a %x3B (";")
+				//     character:
+				// Consume the characters of the unparsed-attributes up to,
+				// not including, the first %x3B (";") character.
+				// ...
+				stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
+			}
+
+			return (document.cookie = key + '=' + value + stringifiedAttributes);
+		}
+
+		function get (key, json) {
+			if (typeof document === 'undefined') {
+				return;
+			}
+
+			var jar = {};
+			// To prevent the for loop in the first place assign an empty array
+			// in case there are no cookies at all.
+			var cookies = document.cookie ? document.cookie.split('; ') : [];
+			var i = 0;
+
+			for (; i < cookies.length; i++) {
+				var parts = cookies[i].split('=');
+				var cookie = parts.slice(1).join('=');
+
+				if (!json && cookie.charAt(0) === '"') {
+					cookie = cookie.slice(1, -1);
+				}
+
+				try {
+					var name = decode(parts[0]);
+					cookie = (converter.read || converter)(cookie, name) ||
+						decode(cookie);
+
+					if (json) {
+						try {
+							cookie = JSON.parse(cookie);
+						} catch (e) {}
+					}
+
+					jar[name] = cookie;
+
+					if (key === name) {
+						break;
+					}
+				} catch (e) {}
+			}
+
+			return key ? jar[key] : jar;
+		}
+
+		api.set = set;
+		api.get = function (key) {
+			return get(key, false /* read as raw */);
+		};
+		api.getJSON = function (key) {
+			return get(key, true /* read as json */);
+		};
+		api.remove = function (key, attributes) {
+			set(key, '', extend(attributes, {
+				expires: -1
+			}));
+		};
+
+		api.defaults = {};
+
+		api.withConverter = init;
+
+		return api;
+	}
+
+	return init(function () {});
+}));
 
 
 /***/ }),
@@ -70264,7 +70792,15 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
+ // var createHost = require('cross-domain-storage/host');
+//
+//
+// var storageHost = createHost([
+//         {
+//             origin: 'http://127.0.0.1:8000',
+//             allowedMethods: ['get', 'set', 'remove']
+//         }
+//     ]);
 
 var MainApp =
 /*#__PURE__*/
@@ -70278,8 +70814,13 @@ function (_Component) {
   }
 
   _createClass(MainApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
     key: "render",
     value: function render() {
+      var a;
+      var b;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_routes__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
@@ -70305,6 +70846,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/common/laxios */ "./resources/js/helpers/common/laxios.js");
 /* harmony import */ var _layout_MainLayout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../layout/MainLayout */ "./resources/js/layout/MainLayout.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70326,7 +70869,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- // import Cookies from 'js-cookie'
+
+
+
+var createGuest = __webpack_require__(/*! cross-domain-storage/guest */ "./node_modules/cross-domain-storage/guest/index.js");
+
+var bazStorage = createGuest('http://laractpa.herokuapp.com');
 
 var Login =
 /*#__PURE__*/
@@ -70360,7 +70908,14 @@ function (_Component) {
         }
       }).then(function (response) {
         localStorage.setItem('isAuth', response.data.auth);
-        localStorage.setItem('u', response.data.name); // Cookies.set('isAuth', response.data.auth, { expires: 723 });
+        localStorage.setItem('u', response.data.name);
+        bazStorage.set("isAuth", response.data.auth, function (error, data) {// foo is now set to 'bar'
+        });
+        bazStorage.set("u", response.data.name, function (error, data) {// foo is now set to 'bar'
+        });
+        js_cookie__WEBPACK_IMPORTED_MODULE_4___default.a.set('isAuth2', response.data.user, {
+          domain: 'http://127.0.0.1:8000'
+        });
 
         if (response.data.status) {
           _this2.props.history.push("/react/dashboard");
@@ -70739,6 +71294,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../layout/MainLayout */ "./resources/js/layout/MainLayout.js");
 /* harmony import */ var _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/common/laxios */ "./resources/js/helpers/common/laxios.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_4__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70761,6 +71318,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+ // var createGuest = require('cross-domain-storage/guest')
+// var bazStorage = createGuest('http://laractpa.herokuapp.com');
 
 var Dashboard =
 /*#__PURE__*/
@@ -70780,16 +71339,43 @@ function (_Component) {
   }
 
   _createClass(Dashboard, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {// bazStorage.set("sso_username", "kamal kamal 2", function(error, data) {
+      //   // foo is now set to 'bar'
+      // });
+      //
+      // bazStorage.set("sso_username11", "kamal kamal 211", function(error, data) {
+      //   // foo is now set to 'bar'
+      // });
+      //
+      //
+      // bazStorage.get("sso_username", function(error, data) {
+      //   if(data){
+      //     console.log(data)
+      //   }
+      // });
+      // bazStorage.get("sso_username", function(error, data) {
+      //   if(data){
+      //     localStorage.setItem('sso_username',data)
+      //   }
+      // });
+    }
+  }, {
     key: "render",
     value: function render() {
-      console.log(localStorage.getItem('isAuth'));
-
-      if (localStorage.getItem('isAuth') === null || localStorage.getItem('isAuth') !== 'true') {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-          to: "/react/login"
-        });
-      }
-
+      //   bazStorage.get('sso_username', function(error, value) {
+      //     if(true){
+      //       console.log('kamal is here')
+      //     }
+      // })
+      // console.log('isRegister = ' + Cookies.get('isRegister'))
+      //
+      //    console.log(document.cookie)
+      //    console.log(localStorage.getItem('isAuth'))
+      // <iframe id="iframeId" width="1260" height="315" src="http://laractpa.herokuapp.com"></iframe>
+      // if (localStorage.getItem('isAuth') === null || localStorage.getItem('isAuth') !== 'true' ) {
+      //   return <Redirect to="/react/login" />
+      // }
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layout_MainLayout__WEBPACK_IMPORTED_MODULE_2__["default"], {
         history: this.props.history
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
@@ -71259,6 +71845,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/common/laxios */ "./resources/js/helpers/common/laxios.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71276,6 +71864,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -71306,6 +71895,9 @@ function (_Component) {
       _helpers_common_laxios__WEBPACK_IMPORTED_MODULE_2__["http"].get('/react/api/logout').then(function (response) {
         localStorage.setItem('isAuth', false);
         localStorage.setItem('u', '');
+        js_cookie__WEBPACK_IMPORTED_MODULE_3___default.a.set('isAuth2', response.data.user, {
+          domain: '127.0.0.1:8000'
+        });
 
         _this2.props.history.push("/react/login");
       });

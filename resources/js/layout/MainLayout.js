@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect, Link, Route, Switch   } from 'react-router-dom'
 import {http} from '../helpers/common/laxios'
+import Cookies from 'js-cookie'
 
 class MainLayout extends Component {
   constructor(props) {
@@ -15,6 +16,10 @@ class MainLayout extends Component {
     http.get('/react/api/logout').then((response)=>{
       localStorage.setItem('isAuth',false)
       localStorage.setItem('u','')
+
+      Cookies.set('isAuth2', response.data.user,{ domain: '127.0.0.1:8000' });
+
+
 
       this.props.history.push("/react/login");
     })

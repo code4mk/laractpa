@@ -1928,6 +1928,19 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+crel@^3.0.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/crel/-/crel-3.1.0.tgz#c0d5ed3df6b8017ff5ecc9f0743c60572e268c64"
+  integrity sha512-VIGY44ERxx8lXVkOEfcB0A49OkjxkQNK+j+fHvoLy7GsGX1KKgAaQ+p9N0YgvQXu+X+ryUWGDeLx/fSI+w7+eg==
+
+cross-domain-storage@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/cross-domain-storage/-/cross-domain-storage-1.0.8.tgz#642a6075b31d6a5685f05b083e6eafea339de9dd"
+  integrity sha512-CKgCYbATmOEtdTOhDrib9ENe9qLaOyAR5uTa8n57viJVQz4GrcEZC4ksjQvzb7/dpYJVxGnTbZC/DrFGVC9O9w==
+  dependencies:
+    crel "^3.0.0"
+    try-parse-json "^1.0.0"
+
 cross-env@^5.1:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-5.2.0.tgz#6ecd4c015d5773e614039ee529076669b9d126f2"
@@ -6476,6 +6489,11 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
   integrity sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
+
+try-parse-json@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/try-parse-json/-/try-parse-json-1.0.2.tgz#4a9aab3526bc148ce62cb4cd67f5c4f6cbeee6ce"
+  integrity sha1-SpqrNSa8FIzmLLTNZ/XE9svu5s4=
 
 tslib@^1.9.0:
   version "1.10.0"

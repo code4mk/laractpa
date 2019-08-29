@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { Redirect, Link, Route, Switch,withRouter } from 'react-router-dom'
 import MainLayout from '../layout/MainLayout'
 
+
 class Welcome extends Component {
+
     render() {
+
+
         return (
           <div>
             <MainLayout history={this.props.history}></MainLayout>

@@ -27,6 +27,7 @@
         "sass-loader": "^7.1.0"
     },
     "dependencies": {
-        "babel-plugin-react-html-attrs": "^2.1.0"
+        "babel-plugin-react-html-attrs": "^2.1.0",
+        "cross-domain-storage": "^1.0.8"
     }
 }

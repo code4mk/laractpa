@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Redirect, Link, Route, Switch, withRouter  } from 'react-router-dom'
 import {http} from '../../helpers/common/laxios'
 import MainLayout from '../../layout/MainLayout'
-// import Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
+var createGuest = require('cross-domain-storage/guest')
+var bazStorage = createGuest('http://laractpa.herokuapp.com');
+
 class Login extends Component {
     constructor(props) {
       super(props);
@@ -23,7 +26,14 @@ class Login extends Component {
         }).then((response)=>{
             localStorage.setItem('isAuth',response.data.auth)
             localStorage.setItem('u',response.data.name)
-            // Cookies.set('isAuth', response.data.auth, { expires: 723 });
+            bazStorage.set("isAuth", response.data.auth, function(error, data) {
+              // foo is now set to 'bar'
+            });
+            bazStorage.set("u", response.data.name, function(error, data) {
+              // foo is now set to 'bar'
+            });
+
+            Cookies.set('isAuth2', response.data.user,{ domain: 'http://127.0.0.1:8000' });
             if(response.data.status){
                 this.props.history.push("/react/dashboard");
             }else if(response.data.status === 'error'){
