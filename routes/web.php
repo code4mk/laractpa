@@ -11,6 +11,45 @@
 |
 */
 
+Route::get(Config::get('domain.money.slug').'/{any?}',function(){
+  return response()->json('money');
+})->middleware('domain:money')->where('any', '.*');
+
+// Route::get(Config::get('domain.token.slug').'/{any?}',function(){
+//   return response()->json('token');
+// })->middleware('domain:token')->where('any', '.*');
+
+
+Route::prefix(Config::get('domain.token.slug'))->middleware('domain:token')->group(function () {
+  Route::get('test', function () {
+      return "this is token root domain";
+  });
+
+});
+
+
+
+
+Route::group(['domain' => 'money-exchange.kamal.kamal'], function () {
+    Route::get('rate', function () {
+        return "this is money exchange sub domain rate page";
+    });
+    Route::get('sell', function () {
+        return "this is money exchange sub domain sell page";
+    });
+});
+
+Route::group(['domain' => 'buytoken.kamal.kamal'], function () {
+    Route::get('test', function () {
+        return "this is token sub domain";
+    });
+});
+
+// Route::get('mk', function () {
+//     return "This will respond to requests for 'admin.localhost/'";
+// });
+
+
 Route::get('userx', function(){
   $u = App\Userx::with(['tickets', 'tickets.ticketReply', 'tickets.ticketReply.ticketAttach'])->limit(1500)->get();
   dd(App\Userx::first());
@@ -41,10 +80,15 @@ Route::get('userx-infoo', function(){
   return response()->json(['user'=> $user,'sum_data6' => $sum]);
 });
 
-Route::get('/', function () {
-    return redirect('/react');
-    //return view('welcome');
-});
+// Route::get('/', function () {
+//     return redirect('/react');
+//     //return view('welcome');
+// });
+
+
+
+
+
 
 Auth::routes();
 
