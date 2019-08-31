@@ -16,11 +16,12 @@
 
 $moneyroutes =  function () {
   Route::get('rate', function () {
+    dd(kroute('money','sell',['id'=>1]));
       return "this is money exchange  rate page.";
-  });
-  Route::get('sell', function () {
+  })->name('rate');
+  Route::get('sell/{id?}', function () {
       return "this is money exchange  sell page.";
-  });
+  })->name('sell');
 };
 
 $tokenroutes =  function () {

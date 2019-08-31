@@ -2,11 +2,11 @@
 
 return [
   'token' => [
-    'domain'=> true,
+    'domain'=> false,
     'slug' => 'buytoken'
   ],
   'money' => [
-    'domain'=> false,
+    'domain'=> true,
     'slug' => 'money-exchange'
   ],
 
