@@ -6,7 +6,7 @@ return [
     'slug' => 'buytoken'
   ],
   'money' => [
-    'domain'=> true,
+    'domain'=> false,
     'slug' => 'money-exchange'
   ],
 

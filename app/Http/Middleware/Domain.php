@@ -14,19 +14,23 @@ class Domain
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next,$service)
+    public function handle($request, Closure $next,$service,$type='root')
     {
-
-
         $getService = (string) $service;
         $isDomain = Config::get('domain'. '.' . $getService . '.domain' );
         $parseURI = parse_url(request()->root());
-        if($isDomain){
+        if($isDomain && $type === 'root'){
 
           $path = str_replace('/'.Config::get('domain'. '.' . $getService . '.slug' ), "", request()->getRequestUri());
           //$parseURI['port']
           // $request->path()
           return redirect()->to($parseURI['scheme'].'://'. Config::get('domain'. '.' . $getService . '.slug' ) . '.' . $parseURI['host'].$path);
+        }
+
+        if(!$isDomain && $type === 'sub'){
+          // return response()->json(request()->getRequestUri());
+          $uri = str_replace(Config::get('domain'. '.' . $getService . '.slug' ).'.', "", $parseURI['host']);
+          return redirect()->to($parseURI['scheme'].'://'.$uri.'/'.Config::get('domain'. '.' . $getService . '.slug' ).request()->getRequestUri());
         }
         return $next($request);
     }

@@ -11,39 +11,72 @@
 |
 */
 
-Route::get(Config::get('domain.money.slug').'/{any?}',function(){
-  return response()->json('money');
-})->middleware('domain:money')->where('any', '.*');
+
+// subdomain system start
+
+$moneyroutes =  function () {
+  Route::get('rate', function () {
+      return "this is money exchange  rate page.";
+  });
+  Route::get('sell', function () {
+      return "this is money exchange  sell page.";
+  });
+};
+
+$tokenroutes =  function () {
+  Route::get('test', function () {
+      return "this is token sale service page.";
+  });
+};
+
+
+
+Route::prefix(Config::get('domain.money.slug'))->middleware('domain:money')->group($moneyroutes);
+Route::group(['domain' => 'money-exchange.kamal.kamal','middleware'=>['domain:money,sub']], $moneyroutes);
+
+
+Route::prefix(Config::get('domain.token.slug'))->middleware('domain:token')->group($tokenroutes);
+Route::group(['domain' => 'buytoken.kamal.kamal','middleware'=>['domain:token,sub']], $tokenroutes);
+
+// subdomain system end
+
+
+
+
+// Route::get(Config::get('domain.money.slug').'/{any?}',function(){
+//   return response()->json('money');
+// })->middleware('domain:money')->where('any', '.*');
+
 
 // Route::get(Config::get('domain.token.slug').'/{any?}',function(){
 //   return response()->json('token');
 // })->middleware('domain:token')->where('any', '.*');
 
 
-Route::prefix(Config::get('domain.token.slug'))->middleware('domain:token')->group(function () {
-  Route::get('test', function () {
-      return "this is token root domain";
-  });
-
-});
-
-
+// Route::prefix(Config::get('domain.token.slug'))->middleware('domain:token')->group(function () {
+//   Route::get('test', function () {
+//       return "this is token root domain";
+//   });
+//
+// });
 
 
-Route::group(['domain' => 'money-exchange.kamal.kamal'], function () {
-    Route::get('rate', function () {
-        return "this is money exchange sub domain rate page";
-    });
-    Route::get('sell', function () {
-        return "this is money exchange sub domain sell page";
-    });
-});
 
-Route::group(['domain' => 'buytoken.kamal.kamal'], function () {
-    Route::get('test', function () {
-        return "this is token sub domain";
-    });
-});
+
+// Route::group(['domain' => 'money-exchange.kamal.kamal'], function () {
+//     Route::get('rate', function () {
+//         return "this is money exchange sub domain rate page";
+//     });
+//     Route::get('sell', function () {
+//         return "this is money exchange sub domain sell page";
+//     });
+// });
+
+// Route::group(['domain' => 'buytoken.kamal.kamal'], function () {
+//     Route::get('test', function () {
+//         return "this is token sub domain";
+//     });
+// });
 
 // Route::get('mk', function () {
 //     return "This will respond to requests for 'admin.localhost/'";
