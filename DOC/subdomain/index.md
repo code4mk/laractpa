@@ -28,3 +28,7 @@ if (! function_exists('kroute')) {
 Route::prefix(Config::get('domain.money.slug'))->middleware('domain:money')->group($moneyroutes);
 Route::group(['domain' => 'money-exchange.kamal.kamal','middleware'=>['domain:money,sub']], $moneyroutes);
 ```
+
+```php
+kroute('money','sell',['id'=>1]));
+```
